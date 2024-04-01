@@ -1,0 +1,12 @@
+{% extends 'base.html' %} <!--Will have all the elements of base.html but with customizable blocks shown below-->
+
+{% block content %}
+    <h1>{% block title %} Welcome to FlaskBlog {% endblock %}</h1>
+    {% for book in books %} <!--Jinja for loop-->
+        <a href="{{  url_for('main.book', book_id=book['id'])  }}">
+            <h2>{{ book['title']  }}</h2> <!--we had passed books as a dictionary-->
+        </a>
+        <span class="badge badge-primary">{{ book['beginDate']  }}</span>
+        <hr>
+    {% endfor %}
+{% endblock %}

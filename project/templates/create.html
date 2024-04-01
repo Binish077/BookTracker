@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Add your thoughts on a book! {% endblock %}</h1>
+
+<form method="post" action="/create">
+    <div class="form-group">
+        <label> Select an option: </label><br>
+        <input type="radio" id="addNew" name="option" value="addNew" checked>
+        <label for="addNew">Add a new book</label>
+
+        <input type="radio" id="useExisting" name="option" value="addExisting">
+        <label for="useExisting">Use existing book</label>
+
+        <br><br>
+
+        <div id="newBookField">
+            <label for="newBookTitle">New Book Title:</label>
+            <input type="text" id="newBookTitle" name="newBookTitle">
+            <br>
+        </div>
+
+        <div id="existingBookField">
+            <label type="text" name="title">Select a Book:</label>
+            <select id="book_id" name="book_id">
+                {% for book in books %}
+                    <option value="{{ book['id'] }}">{{  book['title']  }}</option>
+                {% endfor %}
+            </select>
+            <br>
+        </div>
+
+        <br>
+        <label for="thoughts">Add Your Thoughts:</label>
+        <textarea id="thoughts" name="thoughts" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+<script>
+    document.getElementById('addNew').addEventListener('change', function() {
+        document.getElementById('newBookField').style.display = 'block';
+        document.getElementById('existingBookField').style.display = 'none';
+    });
+
+    document.getElementById('useExisting').addEventListener('change', function() {
+        document.getElementById('existingBookField').style.display = 'block';
+        document.getElementById('newBookField').style.display = 'none';
+    });
+</script>
+
+{% endblock %}
